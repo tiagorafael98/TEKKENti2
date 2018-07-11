@@ -1,0 +1,60 @@
+﻿@model TekkenTI2.Models.Personagens
+
+@{
+   ViewBag.Title = "Detalhes da personagem";
+}
+
+<h2>Detalhes da personagem</h2>
+
+<div>
+    @*<h4>Personagens</h4>*@
+    <hr />
+    <div>
+        <td>
+            <a href="~/ImagensPers/@Model.Fotografia" target="_blank">
+                <img src="~/ImagensPers/@Model.Fotografia" width="400" height="457" />
+            </a>
+        </td>
+    </div>
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Origem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Origem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estreia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estreia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoLuta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoLuta)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
