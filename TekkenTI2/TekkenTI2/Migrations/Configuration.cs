@@ -1,5 +1,7 @@
 namespace TekkenTI2.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -16,6 +18,67 @@ namespace TekkenTI2.Migrations
 
         protected override void Seed(TekkenTI2.Models.TekkenDB context)
         {
+            var user = new List<Utilizadores> {
+                new Utilizadores {ID=1, UserName ="tiago-rafael_98@hotmail.com", NomeCompleto = "Rafael André Campos Gonçalves", DataNascimento = new DateTime(1996,5,3),  Email = "tiago-rafael_98@hotmail.com"},
+                new Utilizadores {ID=2, UserName ="racggoncalves@gmail.com", NomeCompleto = "Tiago Jorge Campos Gonçalves", Email = "tjorge@gmail.com", DataNascimento = new DateTime(1992,4,11)},
+                new Utilizadores {ID=3, UserName ="racggoncalves@gmail.com", NomeCompleto = "Simão Pedro Oliveira Moleiro", Email = "symao96@gmail.com", DataNascimento = new DateTime(1996,10,2)},
+                new Utilizadores {ID=4, UserName ="racggoncalves@gmail.com", DataNascimento = new DateTime(1995,7,2), NomeCompleto = "Beatriz Bangurá Okica de Sá", Email = "beatrizbokica@gmail.com", DataNascimento = new DateTime(1995,7,2)},
+                new Utilizadores {ID=5, UserName ="racggoncalves@gmail.com" , NomeCompleto = "Patricia Sofia Margalhães Faustino", Email = "patricia.sofia.faustino@gmail.com", DataNascimento = new DateTime(1995,10,2)},
+                new Utilizadores {ID=6, UserName ="racggoncalves@gmail.com", NomeCompleto = "Marta Andreia Campos Ribeiro", Email = "Mandreia@gmail.com", DataNascimento = new DateTime(1997,8,22)},
+            };
+
+            user.ForEach(dd => context.Utilizadores.AddOrUpdate(d => d.ID, dd));
+            context.SaveChanges();
+
+            var storeR = new RoleStore<IdentityRole>(context);
+            var managerR = new RoleManager<IdentityRole>(storeR);
+
+            if (!managerR.Roles.Any(r => r.Name == "Admin"))
+            {
+                var role = new IdentityRole { Name = "Admin" };
+
+                managerR.Create(role);
+            }
+            if (!managerR.Roles.Any(r => r.Name == "Viewer"))
+            {
+                var role = new IdentityRole { Name = "Viewer" };
+
+                managerR.Create(role);
+            }
+
+            /////////////////////////// USERS ///////////////////////////////////
+            var store = new UserStore<ApplicationUser>(context);
+            var manager = new UserManager<ApplicationUser>(store);
+            /////////////////////////// ADMIN ///////////////////////////////////
+            var us = user[0]; //Primeiro utilizador do seed da tabela de Users
+            if (!context.Utilizadores.Any(u => u.UserName == us.Email))
+            {
+                var u = new ApplicationUser
+                {
+                    UserName = us.Email,
+                    Email = us.Email
+                };
+
+                manager.Create(u, "123qweQWE#"); // Palavra passe do admin 
+                manager.AddToRole(u.Id, "Admin");
+            }
+            //Os restantes users são views da aplicação web 
+            for (int i = 1; i < user.Count(); i++)
+            {
+                var us2 = user[i];
+                if (!context.Users.Any(u => u.UserName == us2.Email))
+                {
+                    var u = new ApplicationUser
+                    {
+                        UserName = us2.Email,
+                        Email = us2.Email
+                    };
+
+                    manager.Create(u, "123Querty#");
+                    manager.AddToRole(u.Id, "Viewer");
+                }
+            }
+
             // adiciona PLATAFORMAS
 
             var plataformas = new List<Plataformas> {
