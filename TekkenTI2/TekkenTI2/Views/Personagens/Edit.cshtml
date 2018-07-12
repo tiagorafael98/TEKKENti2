@@ -48,17 +48,15 @@
                 @Html.ValidationMessageFor(model => model.TipoLuta, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @*Edição imagens*@
         <div class="form-group">
             @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @* Mostrar a imagem associada à Personagem *@
-                <a href="~/ImagensPers/@Model.Fotografia" target="_blank">
-                    <img src="~/ImagensPers/@Model.Fotografia" height="150" />
-                </a>
-
-                @* procurar a nova imagem*@
-                <input type="file" name="uploadFotografia" style="color:blue;" accept=".jpg" />
+                @*Adição do objeto para fazer o file upload de uma fotografia*@
+                @Html.Hidden("Fotografia", Model.Fotografia)
+                <input type="file" name="uploadFotografia"
+                       style="color:blue;" accept=".jpg" ; />
+                @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "text-danger" })
             </div>
         </div>
 

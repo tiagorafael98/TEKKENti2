@@ -191,6 +191,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JogosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonagensController.cs" />
     <Compile Include="Global.asax.cs">
@@ -358,6 +359,11 @@
     <Content Include="Views\Personagens\Details.cshtml" />
     <Content Include="Views\Personagens\Edit.cshtml" />
     <Content Include="Views\Personagens\Index.cshtml" />
+    <Content Include="Views\Jogos\Create.cshtml" />
+    <Content Include="Views\Jogos\Delete.cshtml" />
+    <Content Include="Views\Jogos\Details.cshtml" />
+    <Content Include="Views\Jogos\Edit.cshtml" />
+    <Content Include="Views\Jogos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

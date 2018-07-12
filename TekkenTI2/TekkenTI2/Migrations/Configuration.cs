@@ -166,7 +166,7 @@ namespace TekkenTI2.Migrations
 
                 new Personagens {ID=46, Nome="Miharu Hirano", Origem="Japão", Estreia="Tekken 4", TipoLuta="Baguazhang e Piguaquan baseados em artes marciais chinesas", Fotografia="Miharu.jpg", ListaDeJogos = new List<Jogo>{ jogos[3], jogos[10] }},
 
-                new Personagens {ID=47, Nome="Feng Wei", Origem="China", Estreia="Tekken 5", TipoLuta="Artes marciais do estilo God Fist", Fotografia="FengWei.jpg", ListaDeJogos = new List<Jogo>{ jogos[4], jogos[5], jogos[6], jogos[7], jogos[8], jogos[10] }},
+                new Personagens {ID=47, Nome="Feng Wei", Origem="China", Estreia="Tekken 5", TipoLuta="Artes marciais do estilo God Fist", Fotografia="Feng.jpg", ListaDeJogos = new List<Jogo>{ jogos[4], jogos[5], jogos[6], jogos[7], jogos[8], jogos[10] }},
 
                 new Personagens {ID=48, Nome="Asuka Kazama", Origem="Japão", Estreia="Tekken 5", TipoLuta="Artes marciais tradicionais estilo Kazama", Fotografia="Asuka.jpg", ListaDeJogos = new List<Jogo>{ jogos[4], jogos[5], jogos[6], jogos[7], jogos[8], jogos[10] }},
 

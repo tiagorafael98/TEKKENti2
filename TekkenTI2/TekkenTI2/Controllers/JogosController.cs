@@ -9,96 +9,82 @@ using System.Web;
 using System.Web.Mvc;
 using TekkenTI2.Models;
 
-namespace Tekken.Controllers
+namespace TekkenTI2.Controllers
 {
-    public class PersonagensController : Controller
+    public class JogosController : Controller
     {
         private TekkenDB db = new TekkenDB();
 
-        // GET: Personagens
+        // GET: Jogos
         public ActionResult Index()
         {
             // obter a lista das personagens por order alfabética
             // em SQL: SELECT * FROM Personagens ORDER BY Nome;
-            var listaDePersonagens = db.Personagens.ToList().OrderBy(a => a.Nome);
+            var listaDeJogos = db.Jogo.ToList().OrderBy(a => a.Titulo);
 
-            return View(listaDePersonagens);
+            return View(listaDeJogos);
         }
 
-        // GET: Personagens/Details/5
+        // GET: Jogos/Details/5
         public ActionResult Details(int? id)
         {
-            // se se escrever 'int?' é possível não fornecer o valor para o ID e não há erro
-
-            // proteção para o caso de não ter sido fornecido um ID válido
             if (id == null)
             {
-                // se não houve ID, volta ao Index
                 return RedirectToAction("Index");
             }
+            Jogo jogo = db.Jogo.Find(id);
 
-            //procura na BD a personagem cujo ID foi fornecido
-            Personagens personagens = db.Personagens.Find(id);
-
-            // se a personagem não for encontrado
-            if (personagens == null)
+            if (jogo == null)
             {
-                //redireciona ao Index
                 return RedirectToAction("Index");
             }
-
-            // entreg à View os dados da personagem encontrada
-            return View(personagens);
+            return View(jogo);
         }
 
-        // GET: Personagens/Create
+        // GET: Jogos/Create
         public ActionResult Create()
         {
-
-            // apresenta a View para se inserir uma nova Personagem
             return View();
         }
 
-        // POST: Personagens/Create
+        // POST: Jogos/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Origem,Estreia,TipoLuta,Fotografia")] Personagens personagem, HttpPostedFileBase uploadFotografia)
+        public ActionResult Create([Bind(Include = "ID,Titulo,Genero,Fotografia")] Jogo jogo, HttpPostedFileBase uploadFotografia)
         {
-            // escrever os dados de uma nova Personagem na BD
-            // especificar o ID da nova Personagem através de um TRY/CATCH
-            int idNovaPersonagem = 0;
+
+            int idNovoJogo = 0;
             try
             {
-                //Vai a bd, depois a tabela das personagens e calcula o ID maximo
-                idNovaPersonagem = db.Personagens.Max(a => a.ID) + 1;
+                //Vai a bd, depois a tabela das personagens e calcula o id máximo
+                idNovoJogo = db.Jogo.Max(a => a.ID) + 1;
             }
             catch (Exception)
             {
-                idNovaPersonagem = 1;
+                idNovoJogo = 1;
             }
 
-            // guardar o ID da nova Personagem
-            personagem.ID = idNovaPersonagem;
+            //Guardar o ID do novo Jogo
+            jogo.ID = idNovoJogo;
 
-            // especificar o nome do ficheiro
-            string nomeImagem = "Personagem_" + idNovaPersonagem + ".jpg";
+            //Especificar o nome do ficheiro
+            string nomeImagem = "Jogo_" + idNovoJogo + ".jpg";
 
-            // variável auxiliar
+            //váriavel aux
             string path = "";
 
-            //Validar se a imagem foi fornecida
+            //Validar de a imagem foi fornecida
             if (uploadFotografia != null)
             {
                 //O ficheiro foi fornecido
                 // criar o caminho completo até ao sítio onde o ficheiro
                 // será guardado
-                path = Path.Combine(Server.MapPath("~/ImagensPers/"), nomeImagem);
+                path = Path.Combine(Server.MapPath("~/ImagensCapa/"), nomeImagem);
 
                 // guardar o nome do ficheiro na BD
-                personagem.Fotografia = nomeImagem;
-
+                jogo.Fotografia = nomeImagem;
             }
             else
             {
@@ -106,128 +92,98 @@ namespace Tekken.Controllers
                 //Gerar uma mensagem de erro
                 ModelState.AddModelError("", "Não foi fornecida uma imagem.");
                 //Devolver o controlo à View
-                return View(personagem);
-            }
+                return View(jogo);
 
+            }
             // ModelState.IsValid -> confronta os dados fornecidos da View com as exigências do Modelo
             if (ModelState.IsValid)
             {
                 //Add a nova personagem à BD
-                db.Personagens.Add(personagem);
+                db.Jogo.Add(jogo);
                 // faz 'commit' às alterações
                 db.SaveChanges();
 
                 // escrever o ficheiro com a fotografia no disco rígido, na pasta 'imagens'
                 uploadFotografia.SaveAs(path);
-
-                // retorna ao index
                 return RedirectToAction("Index");
             }
 
-            return View(personagem);
+            return View(jogo);
         }
 
-        // GET: Personagens/Edit/5
+        // GET: Jogos/Edit/5
         public ActionResult Edit(int? id)
         {
-
             if (id == null)
             {
-                //Se o id não for encontrado ou não existir, volta ao Index
                 return RedirectToAction("Index");
             }
-
             // procura na BD a personagem cujo ID foi fornecido
-            Personagens personagem = db.Personagens.Find(id);
+            Jogo jogo = db.Jogo.Find(id);
 
             // proteção para o caso de não ter sido encontrado qq Agente que tenha o ID fornecido
-            if (personagem == null)
+            if (jogo == null)
             {
-
-                // retorna para o index 
                 return RedirectToAction("Index");
             }
             // entrega à View os dados da personagem encontrada
-            return View(personagem);
+            return View(jogo);
         }
 
-        // POST: Personagens/Edit/5
+        // POST: Jogos/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Origem,Estreia,TipoLuta,Fotografia")] Personagens personagem, HttpPostedFileBase uploadFotografia)
+        public ActionResult Edit([Bind(Include = "ID,Titulo,Genero,Fotografia")] Jogo jogo, HttpPostedFileBase uploadFotografia)
         {
-
-            /// existe imagem?
-            ///    se não existe, nada se faz => manter a anterior
-            ///    se existe
-            ///          não é válida, nada se faz => manter a anterior
-            ///          se é válida
-            ///             - fazer como no create para guardar a nova imagem
-            ///             - guardar os dados da nova imagem na bd
-            ///             - guardar a nova imagem no disco rígido
-            ///             - apagar a imagem anterior do disco rígido
-
             if (ModelState.IsValid)
-            { 
+            {
+                //Editar Imagem
                 if (uploadFotografia != null)
                 {
-                    if (System.IO.File.Exists(Server.MapPath("~/ImagensPers/" + personagem.ID + personagem.Fotografia)))
+                    if (System.IO.File.Exists(Server.MapPath("~/ImagensCapa/" + jogo.ID + jogo.Fotografia)))
                     {
-                        System.IO.File.Exists(Server.MapPath("~/ImagensPers/" + personagem.ID + personagem.Fotografia));
-
+                        System.IO.File.Delete(Server.MapPath("~/ImagensCapa/" + jogo.ID + jogo.Fotografia));
                     }
-                    personagem.Fotografia = Path.GetExtension(uploadFotografia.FileName);
+                    jogo.Fotografia = Path.GetExtension(uploadFotografia.FileName);
 
-                    uploadFotografia.SaveAs(Path.Combine(Server.MapPath("~/ImagensPers/" + personagem.ID + personagem.Fotografia)));
+                    uploadFotografia.SaveAs(Path.Combine(Server.MapPath("~/ImagensCapa/" + jogo.ID + jogo.Fotografia)));
+
                 }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
-            return View(personagem);
+            return View(jogo);
         }
-        /// <summary>
-        /// apresenta na View os dados de um agente, 
-        /// com vista à sua eventual eliminação
-        /// </summary>
-        /// <param name="id">idengificador da Personagem a apagar</param>
-        /// <returns></returns>
-        // GET: Personagens/Delete/5
+
+        // GET: Jogos/Delete/5
         public ActionResult Delete(int? id)
         {
-
-            // verificar se foi fornecido um ID válido
             if (id == null)
             {
-
                 return RedirectToAction("Index");
             }
-
             // pesquisar pela personagem cujo ID foi fornecido
-            Personagens personagens = db.Personagens.Find(id);
+            Jogo jogo = db.Jogo.Find(id);
 
             // verificar se a Personagem foi encontrada
-            if (personagens == null)
+            if (jogo == null)
             {
-
                 return RedirectToAction("Index");
             }
-            // apresentar os dados na View
-            return View(personagens);
+            return View(jogo);
         }
 
-        // POST: Personagens/Delete/5
+        // POST: Jogos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
             Personagens personagem = db.Personagens.Find(id);
             try
             {
-
                 // remove a Personagem da BD
                 db.Personagens.Remove(personagem);
 
@@ -238,7 +194,7 @@ namespace Tekken.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", string.Format("Não é possível apagar a Personagem {1}",
+                ModelState.AddModelError("", string.Format("Não é possível apagar a Personagem nº {0} - {1}",
                                                            id, personagem.Nome)
                 );
             }

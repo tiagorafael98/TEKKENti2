@@ -11,7 +11,7 @@ namespace TekkenTI2.Models
     public class TekkenDB : DbContext
     {
 
-        public TekkenDB() : base("TekkenDbConnectionString")
+        public TekkenDB() : base("DefaultConnection")
         { }
 
         public virtual DbSet<Jogo> Jogo { get; set; }
