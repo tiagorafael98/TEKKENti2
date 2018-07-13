@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -29,5 +30,22 @@ namespace TekkenTI2.Models
         {
             return new ApplicationDbContext();
         }
+
+        public virtual DbSet<Jogo> Jogo { get; set; }
+        public virtual DbSet<Historia> Historia { get; set; }
+        public virtual DbSet<Personagens> Personagens { get; set; }
+        public virtual DbSet<Comentarios> Comentarios { get; set; }
+        public virtual DbSet<Utilizadores> Utilizadores { get; set; }
+        public virtual DbSet<Plataformas> Plataformas { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

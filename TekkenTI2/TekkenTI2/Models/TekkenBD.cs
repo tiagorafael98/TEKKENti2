@@ -11,23 +11,9 @@ namespace TekkenTI2.Models
     public class TekkenDB : DbContext
     {
 
-        public TekkenDB() : base("DefaultConnection")
-        { }
+       // public TekkenDB() : base("DefaultConnection")
+      //  { }
 
-        public virtual DbSet<Jogo> Jogo { get; set; }
-        public virtual DbSet<Historia> Historia { get; set; }
-        public virtual DbSet<Personagens> Personagens { get; set; }
-        public virtual DbSet<Comentarios> Comentarios { get; set; }
-        public virtual DbSet<Utilizadores> Utilizadores { get; set; }
-        public virtual DbSet<Plataformas> Plataformas { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-
-            base.OnModelCreating(modelBuilder);
-        }
+       
     }
 }

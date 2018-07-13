@@ -13,7 +13,7 @@ namespace Tekken.Controllers
 {
     public class PersonagensController : Controller
     {
-        private TekkenDB db = new TekkenDB();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Personagens
         public ActionResult Index()
