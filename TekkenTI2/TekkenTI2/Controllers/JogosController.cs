@@ -20,7 +20,7 @@ namespace TekkenTI2.Controllers
         {
             // obter a lista das personagens por order alfabética
             // em SQL: SELECT * FROM Personagens ORDER BY Nome;
-            var listaDeJogos = db.Jogo.ToList().OrderBy(a => a.Titulo);
+            var listaDeJogos = db.Jogos.ToList().OrderBy(a => a.Titulo);
 
             return View(listaDeJogos);
         }
@@ -32,7 +32,7 @@ namespace TekkenTI2.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Jogo jogo = db.Jogo.Find(id);
+            Jogos jogo = db.Jogos.Find(id);
 
             if (jogo == null)
             {
@@ -40,7 +40,7 @@ namespace TekkenTI2.Controllers
             }
             return View(jogo);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Jogos/Create
         public ActionResult Create()
         {
@@ -50,16 +50,17 @@ namespace TekkenTI2.Controllers
         // POST: Jogos/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Titulo,Genero,Fotografia")] Jogo jogo, HttpPostedFileBase uploadFotografia)
+        public ActionResult Create([Bind(Include = "ID,Titulo,Genero,Fotografia")] Jogos jogo, HttpPostedFileBase uploadFotografia)
         {
 
             int idNovoJogo = 0;
             try
             {
                 //Vai a bd, depois a tabela das personagens e calcula o id máximo
-                idNovoJogo = db.Jogo.Max(a => a.ID) + 1;
+                idNovoJogo = db.Jogos.Max(a => a.ID) + 1;
             }
             catch (Exception)
             {
@@ -99,7 +100,7 @@ namespace TekkenTI2.Controllers
             if (ModelState.IsValid)
             {
                 //Add a nova personagem à BD
-                db.Jogo.Add(jogo);
+                db.Jogos.Add(jogo);
                 // faz 'commit' às alterações
                 db.SaveChanges();
 
@@ -112,6 +113,7 @@ namespace TekkenTI2.Controllers
         }
 
         // GET: Jogos/Edit/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -119,7 +121,7 @@ namespace TekkenTI2.Controllers
                 return RedirectToAction("Index");
             }
             // procura na BD a personagem cujo ID foi fornecido
-            Jogo jogo = db.Jogo.Find(id);
+            Jogos jogo = db.Jogos.Find(id);
 
             // proteção para o caso de não ter sido encontrado qq Agente que tenha o ID fornecido
             if (jogo == null)
@@ -133,9 +135,10 @@ namespace TekkenTI2.Controllers
         // POST: Jogos/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Titulo,Genero,Fotografia")] Jogo jogo, HttpPostedFileBase uploadFotografia)
+        public ActionResult Edit([Bind(Include = "ID,Titulo,Genero,Fotografia")] Jogos jogo, HttpPostedFileBase uploadFotografia)
         {
             if (ModelState.IsValid)
             {
@@ -158,6 +161,7 @@ namespace TekkenTI2.Controllers
             return View(jogo);
         }
 
+        [Authorize(Roles = "Administrador")]
         // GET: Jogos/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -166,7 +170,7 @@ namespace TekkenTI2.Controllers
                 return RedirectToAction("Index");
             }
             // pesquisar pela personagem cujo ID foi fornecido
-            Jogo jogo = db.Jogo.Find(id);
+            Jogos jogo = db.Jogos.Find(id);
 
             // verificar se a Personagem foi encontrada
             if (jogo == null)
@@ -177,6 +181,7 @@ namespace TekkenTI2.Controllers
         }
 
         // POST: Jogos/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

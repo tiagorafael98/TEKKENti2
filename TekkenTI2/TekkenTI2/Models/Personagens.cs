@@ -11,7 +11,8 @@ namespace TekkenTI2.Models
     {
         public Personagens()
         {
-            ListaDeJogos = new HashSet<Jogo>();
+            ListaDeJogos = new HashSet<Jogos>();
+            ListaDeComentarios = new HashSet<Comentarios>();
         }
 
         [Key]
@@ -32,7 +33,8 @@ namespace TekkenTI2.Models
 
         public string Fotografia { get; set; }
 
-        public virtual ICollection<Jogo> ListaDeJogos { get; set; }
+        public virtual ICollection<Jogos> ListaDeJogos { get; set; }
+        public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }
 
     }
 }

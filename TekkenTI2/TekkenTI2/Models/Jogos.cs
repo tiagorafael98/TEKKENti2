@@ -6,9 +6,9 @@ using System.Web;
 
 namespace TekkenTI2.Models
 {
-    public class Jogo
+    public class Jogos
     {
-        public Jogo()
+        public Jogos()
         {
 
             ListaDePersonagens = new HashSet<Personagens>();

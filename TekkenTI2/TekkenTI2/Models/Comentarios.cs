@@ -18,7 +18,7 @@ namespace TekkenTI2.Models
 
         [ForeignKey("Jogo")]
         public int JogoFK { get; set; }
-        public virtual Jogo Jogo { get; set; }
+        public virtual Jogos Jogo { get; set; }
 
         [ForeignKey("Utilizadores")]
         public int UtilizadoresFK { get; set; }

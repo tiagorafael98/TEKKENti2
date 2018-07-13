@@ -10,7 +10,7 @@ namespace TekkenTI2.Models
     {
         public Plataformas()
         {
-            ListaDeJogos = new HashSet<Jogo>();
+            ListaDeJogos = new HashSet<Jogos>();
         }
 
         [Key]
@@ -22,7 +22,7 @@ namespace TekkenTI2.Models
 
         public string Ano { get; set; }
 
-        public virtual ICollection<Jogo> ListaDeJogos { get; set; }
+        public virtual ICollection<Jogos> ListaDeJogos { get; set; }
 
     }
 }

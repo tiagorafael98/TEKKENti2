@@ -1,46 +1,41 @@
-﻿@model IEnumerable<TekkenTI2.Models.Jogo>
+﻿@model IEnumerable<TekkenTI2.Models.Jogos>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<style>
+    body {
+        background-color: lightgray;
+    }
+</style>
 
+
+<div style=" display:flex; flex-wrap:wrap; flex-direction:row; justify-content:space-around; align-content:center;">
+        @foreach (var item in Model)
+        {
+
+            <div style="padding-top: 15px">
+                <a href="/Jogos/Details/@item.ID">
+                    <img src="~/ImagensCapa/@item.Fotografia" width="300" height="360" />
+                </a>
+            </div>
+        }
+    
+</div>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Adicionar novo jogo", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fotografia)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genero)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.Fotografia)*@
-            @*<a href="~/ImagensCapa/@item.Fotografia" target="_blank">*@
-            <a href="~/Jogos/Details/@item.ID" target="_blank">
-                <img src="~/ImagensCapa/@item.Fotografia" width="150" height="180" />
-            </a>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </td>
-    </tr>
-}
 
-</table>
+@*meter no detalhes
+
+       <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+
+
+*@
+

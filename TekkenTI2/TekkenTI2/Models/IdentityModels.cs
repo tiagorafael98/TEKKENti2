@@ -31,7 +31,7 @@ namespace TekkenTI2.Models
             return new ApplicationDbContext();
         }
 
-        public virtual DbSet<Jogo> Jogo { get; set; }
+        public virtual DbSet<Jogos> Jogos { get; set; }
         public virtual DbSet<Historia> Historia { get; set; }
         public virtual DbSet<Personagens> Personagens { get; set; }
         public virtual DbSet<Comentarios> Comentarios { get; set; }
