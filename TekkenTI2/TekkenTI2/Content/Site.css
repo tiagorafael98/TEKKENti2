@@ -30,3 +30,8 @@ textarea {
     display: flex;
     align-items: center;
 }
+
+.img {
+    width: 450px;
+    overflow: auto;
+}

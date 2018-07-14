@@ -25,6 +25,7 @@ namespace TekkenTI2.Models
         public string Genero { get; set; }
 
         public string Fotografia { get; set; }
+        public string Ano { get; set; }
 
         public virtual ICollection<Personagens> ListaDePersonagens { get; set; }
         public virtual ICollection<Historia> ListaDeHistorias { get; set; }
