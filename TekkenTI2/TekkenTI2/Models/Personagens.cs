@@ -31,7 +31,10 @@ namespace TekkenTI2.Models
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string TipoLuta { get; set; }
 
+        [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]
         public string Fotografia { get; set; }
+
+        public string Biografia { get; set; }
 
         public virtual ICollection<Jogos> ListaDeJogos { get; set; }
         public virtual ICollection<Comentarios> ListaDeComentarios { get; set; }

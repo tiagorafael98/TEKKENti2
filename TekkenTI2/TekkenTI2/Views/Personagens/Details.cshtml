@@ -1,61 +1,89 @@
 ﻿@model TekkenTI2.Models.Personagens
 
 @{
-   ViewBag.Title = "Detalhes da personagem";
+    ViewBag.Title = "Detalhes da personagem";
 }
 
-<h2>Detalhes da personagem</h2>
+@* imagem de fundo *@
+<style>
+    body {
+        background-image: url(../../FundoPersonagens/Fundo3.jpg);
+    }
 
-<div>
-    @*<h4>Personagens</h4>*@
-    <hr />
-    <div>
-        <td>
-            <a href="~/ImagensPers/@Model.Fotografia" target="_blank">
-                <img src="~/ImagensPers/@Model.Fotografia" width="400" height="457" />
-            </a>
-        </td>
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        font-family: 'Lucida Console';
+        color: black;
+        background-color: white;
+        border: blue;
+        border-radius: 12px;
+        border: 2px solid #191970;
+    }
+
+        .button:hover {
+            background-color: #D3D3D3
+        }
+
+        .button:active {
+            background-color: #A9A9A9;
+            transform: translateY(2px);
+        }
+</style>
+
+<div style="margin-top: 40px; display: -webkit-flex; -webkit-align-items: center; display: flex;align-items: center;">
+    @*Imagem da Personagem*@
+    <div style="border:solid;border-color:black;">
+        <a href="~/ImagensPers/@Model.Fotografia" target="_blank">
+            <img src="~/ImagensPers/@Model.Fotografia" width="400" height="457" />
+        </a>
     </div>
-    <dl class="dl-horizontal">
 
+    <div style="height:400px">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
+        @*Nome da Personagem*@
+        <div style="font-family: Arial; text-align: left;color: red; font-size: 50px;font-weight: bold;margin-top: -45px; margin-left: 18px;width: 100%;">
             @Html.DisplayFor(model => model.Nome)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Origem)
-        </dt>
+        @*Biografia da Personagem*@
+        <div style="font-family:'Lucida Console'; font-size: 16.5px; color: black;text-align:justify; margin-left:20px; color:white">
+            @Html.DisplayFor(model => model.Biografia)
+        </div>
+        @*Origem da Personagem*@
+        <div style="font-family:Arial;font-size: 25px; color: red; font-weight: bold;padding-top: 20px; margin-left:20px;">Natural</div>
+        <div style="font-family:Arial; font-size: 18px; color: black;text-align:justify; padding-top:-300px; margin-left:20px; color:white;">
+            <b>@Html.DisplayFor(model => model.Origem)</b>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Origem)
-        </dd>
+        @*Estreia da Personagem*@
+        <div style="font-family:Arial;font-size: 25px; color: red; font-weight: bold;padding-top: 15px; margin-left:20px;">Primeiro Jogo</div>
+        <div style="font-family:Arial; font-size: 18px; color: black;text-align:justify; padding-top:-300px; margin-left:20px; color:white;">
+            <b>@Html.DisplayFor(model => model.Estreia)</b>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Estreia)
-        </dt>
+        @*Tipo de Luta da Personagem*@
+        <div style="font-family:Arial;font-size: 25px; color: red; font-weight: bold;padding-top: 20px; margin-left:20px;">Tipo de luta</div>
+        <div style="font-family:Arial; font-size: 18px; color: black;text-align:justify; padding-top:-300px; margin-left:20px; color:white;">
+            <b>@Html.DisplayFor(model => model.TipoLuta)</b>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Estreia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoLuta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoLuta)
-        </dd>
-        <td>
-            
-        </td>
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@* Botões de editar a Personagem somente para o Administrador*@
+@if (User.IsInRole("Administrador"))
+{
+    <div class="btn-group" role="group" style="margin-bottom:9px; padding-top:50px; padding-left: 758px;">
+        <button type="button" class="button" onclick="location.href='@Url.Action("Edit","Personagens",new { id = Model.ID })'">Editar Personagem</button>
+        <button type="button" class="button" onclick="location.href='@Url.Action("Delete","Personagens", new { id = Model.ID })'">Apagar Personagem</button>
+    </div>
+}
+
+@*Botão para voltar à lista de Jogos*@
+<div class="btn-group" role="group" style="margin-bottom:9px; padding-top:40px; padding-left: 805px;">
+    <button type="button" class="button" onclick="location.href='@Url.Action("Index","Personagens",new { id = Model.ID })'">Voltar para a lista de Personagens</button>
+</div>

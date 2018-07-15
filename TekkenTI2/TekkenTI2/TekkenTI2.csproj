@@ -314,6 +314,8 @@
     <Content Include="ImagensPers\Xiaoyu.jpg" />
     <Content Include="ImagensPers\Yoshimitsu.jpg" />
     <Content Include="ImagensPers\Zafina.jpg" />
+    <Content Include="OutrasImgs\AdminImg.jpg" />
+    <Content Include="OutrasImgs\Logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -384,6 +386,7 @@
     <Content Include="Views\Comentarios\Details.cshtml" />
     <Content Include="Views\Comentarios\Edit.cshtml" />
     <Content Include="Views\Comentarios\Index.cshtml" />
+    <Content Include="Views\Personagens\Sobre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

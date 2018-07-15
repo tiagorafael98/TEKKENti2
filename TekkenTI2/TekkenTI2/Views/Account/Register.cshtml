@@ -2,28 +2,56 @@
 @{
     ViewBag.Title = "Registre-se";
 }
+<style>
+    body {
+        background-image: url(../../FundoPersonagens/Fundo3.jpg);
+    }
 
-<h2>@ViewBag.Title.</h2>
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        font-family: 'Lucida Console';
+        color: black;
+        background-color: white;
+        border: blue;
+        border-radius: 12px;
+        border: 2px solid #191970;
+    }
+
+        .button:hover {
+            background-color: #D3D3D3
+        }
+
+        .button:active {
+            background-color: #A9A9A9;
+            transform: translateY(2px);
+        }
+</style>
+
+<div style="font-family:'Lucida Console'; font-size:35px; color:white; margin-top:20px;">@ViewBag.Title.</div>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Crie uma nova conta.</h4>
+    <div style="font-family:'Lucida Console'; font-size:19px; color:white; margin-top:15px;">Crie uma nova conta.</div>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
+    <div class="form-group" style="font-family:'Lucida Console'; color:white;">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="font-family:'Lucida Console'; color:white;">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="font-family:'Lucida Console'; color:white;">
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
@@ -31,7 +59,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrar-se" />
+            <input type="submit" class="button" value="Registrar-se" />
         </div>
     </div>
 }

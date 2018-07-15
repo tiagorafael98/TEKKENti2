@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TekkenTI2.Models.Jogos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Jogos";
 }
 
 <style>
@@ -10,18 +10,21 @@
     }
 </style>
 
+<div style="font-family: 'Lucida Console'; text-align: left;color: red; font-size: 40px;font-weight: bold; margin-left:280px; margin-top:40px;">
+    Conheça todos os jogos!
+</div>
 
-<div style=" display:flex; flex-wrap:wrap; flex-direction:row; justify-content:space-around; align-content:center;">
-        @foreach (var item in Model)
-        {
+<div style=" display:flex; flex-wrap:wrap; flex-direction:row; justify-content:space-around; align-content:center; margin-top:30px;">
+    @foreach (var item in Model)
+    {
 
-            <div style="padding-top: 15px">
-                <a href="/Jogos/Details/@item.ID">
-                    <img src="~/ImagensCapa/@item.Fotografia" width="300" height="360" />
-                </a>
-            </div>
-        }
-    
+        <div style="padding-top: 15px">
+            <a href="/Jogos/Details/@item.ID">
+                <img src="~/ImagensCapa/@item.Fotografia" width="300" height="360" />
+            </a>
+        </div>
+    }
+
 </div>
 <p>
     @Html.ActionLink("Adicionar novo jogo", "Create")

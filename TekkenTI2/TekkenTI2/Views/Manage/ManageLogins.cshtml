@@ -4,13 +4,20 @@
     ViewBag.Title = "Gerenciar seus logins externos";
 }
 
-<h2>@ViewBag.Title.</h2>
+<style>
+    body {
+        background-image: url(../../FundoPersonagens/Fundo3.jpg);
+    }
+</style>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+<div style="font-family:'Lucida Console'; font-size:35px; color:white; margin-top:20px;">@ViewBag.Title.</div>
+
+<div class="text-success">@ViewBag.StatusMessage</div>
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
-        <div>
+    if (loginProviders.Count() == 0)
+    {
+        <div style="font-family:'Lucida Console'; color:white; margin-top:20px; font-size16px;">
             <p>
                 Não há serviços de autenticação externos configurados. Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=313242">este artigo</a>
                 para obter detalhes sobre como configurar este aplicativo ASP.NET para dar suporte ao registro em log por meio de serviços externos.
@@ -57,12 +64,12 @@
             {
                 @Html.AntiForgeryToken()
                 <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in Model.OtherLogins)
-                    {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Efetue login usando sua conta @p.Caption">@p.AuthenticationType</button>
-                    }
-                </p>
+                    <p>
+                        @foreach (AuthenticationDescription p in Model.OtherLogins)
+                        {
+                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Efetue login usando sua conta @p.Caption">@p.AuthenticationType</button>
+                        }
+                    </p>
                 </div>
             }
         }

@@ -1,0 +1,48 @@
+﻿@model TekkenTI2.Models.Personagens
+
+@{
+    ViewBag.Title = "Sobre";
+}
+
+<style>
+
+    body {
+        background-image: url(../../FundoPersonagens/Fundo3.jpg);
+    }
+</style>
+<h2>Sobre</h2>
+<div>
+    @*Minha Fotografia*@
+    <div style="border:solid;border-color:black;">
+        <img src="~/imagemAdmin/ImgAdmin.jpg" width="320" height="412" />
+    </div>
+    <div>
+        
+        @* disciplina *@
+        <div>Tecnologia da Internet II</div>
+
+        @* politécnico *@
+        <div style="margin-left: 150px;">
+            <h2 style="font-family:Arial; font-weight:bold; color:black;">Engenharia Informática</h2>
+        </div>
+        @* ano letivo *@
+        <div style="margin-left: 150px;">
+            <h3 style="font-family:Arial; font-weight:bold; color:black;">2017/2018</h3>
+        </div>
+        @* nome do dono do projeto *@
+        <div style="margin-left: 150px;">
+            <h3 style="font-family:Arial; font-weight:bold; color:black;">Tiago Cândido nº 20185</h3>
+        </div>
+    </div>
+</div>
+@*Dados Relevantes*@
+<div>
+    <h3 style="font-family:Arial; font-weight:bold; color:darkred"> Dados Relevantes</h3>
+</div>
+<div>
+    <h4 style="font-family:Arial; color:black;"> <b>Administrador: </b>racggoncalves@gmail.com <br /> <b>Password:</b>123qweQWE#</h4>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

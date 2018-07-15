@@ -20,11 +20,15 @@ namespace TekkenTI2.Models
         [Key]
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Titulo { get; set; }
 
         public string Genero { get; set; }
 
+        [Required(ErrorMessage = "A {0} é de preenchimento obrigatório!")]
         public string Fotografia { get; set; }
+
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório!")]
         public string Ano { get; set; }
 
         public virtual ICollection<Personagens> ListaDePersonagens { get; set; }

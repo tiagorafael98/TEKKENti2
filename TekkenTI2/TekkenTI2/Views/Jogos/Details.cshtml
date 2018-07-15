@@ -1,30 +1,56 @@
 ﻿@model TekkenTI2.Models.Jogos
 
 @{
-    ViewBag.Title = "Details";
+    /**/
+
+    ViewBag.Title = "Detalhes do Jogo";
 }
-@*cor do funfo *@
+@* imagem de fundo *@
 <style>
     body {
         background-image: url(../../FundoPersonagens/Fundo3.jpg);
     }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        font-family: 'Lucida Console';
+        color: black;
+        background-color: white;
+        border: blue;
+        border-radius: 12px;
+        border: 2px solid #191970;
+    }
+
+        .button:hover {
+            background-color: #D3D3D3
+        }
+
+        .button:active {
+            background-color: #A9A9A9;
+            transform: translateY(2px);
+        }
 </style>
-<div style="margin-top: 40px; display: -webkit-flex; -webkit-align-items: center; display: flex;align-items: center;">
-    @*Imagens do Jogo*@
+
+<div style="margin-top: 60px; display: -webkit-flex; -webkit-align-items: center; display: flex;align-items: center;">
+    @*Imagem do Jogo*@
     <div style="border:solid;border-color:black;">
         <a href="~/ImagensCapa/@Model.Fotografia" target="_blank">
             <img src="~/ImagensCapa/@Model.Fotografia" width="400" height="487" />
         </a>
     </div>
-    <div style="height:400px">
 
+    <div style="height:400px">
         @*Nome do jogo*@
-        <div style="font-family: Arial; ttext-align: left;color: red; font-size: 50px;font-weight: bold;margin-top: -60px; margin-left: 20px;width: 100%;">
+        <div style="font-family: 'Lucida Console'; text-align: left;color: red; font-size: 47px;font-weight: bold;margin-top: -57px; margin-left: 20px;width: 100%;">
             @Html.DisplayFor(model => model.Titulo)
         </div>
 
         @*Enredo do Jogo*@
-        <div style="font-family:Arial; font-size: 18px; color: black;text-align:justify; padding-top:2px; margin-left:20px;">
+        <div style="font-family:'Lucida Console'; font-size: 16.5px; color: black;text-align:justify; margin-left:20px;">
             @if (Model.ListaDeHistorias.Count() > 0)
             {
                 foreach (var historia in Model.ListaDeHistorias)
@@ -37,8 +63,8 @@
 
         </div>
         @*Plataformas do Jogo*@
-        <div style="font-family:Arial;font-size: 25px; color: red; font-weight: bold;padding-top: 20px; margin-left:20px;">Plataformas</div>
-        <div style="font-family:Arial; font-size: 18px; color: black;text-align:justify; padding-top:6px; margin-left:20px;">
+        <div style="font-family:'Lucida Console';font-size: 25px; color: red; font-weight: bold;padding-top: 16px; margin-left:20px;">Plataformas</div>
+        <div style="font-family:'Lucida Console'; font-size: 18px; color: black;text-align:justify; padding-top:2px; margin-left:20px;">
             @if (Model.ListaDePlataformas.Count() > 0)
             {
                 foreach (var plataforma in Model.ListaDePlataformas)
@@ -52,19 +78,19 @@
 
 
         @*Ano de lançamento do Jogo*@
-        <div style="font-family:Arial;font-size: 25px; color: red; font-weight: bold;padding-top: 20px; margin-left:20px;">Ano de Lançamento</div>
-        <div style="font-family:Arial; color:white; font-size: 18px; color: black;text-align:justify; padding-top:0px; margin-left:20px;">
-            <div style="color:white;"><b>
-                @Html.DisplayFor(model => model.Ano)
-            </b></div>
+        <div style="font-family:'Lucida Console';font-size: 25px; color: red; font-weight: bold;padding-top: 6px; margin-left:20px;">Ano de Lançamento</div>
+        <div style="font-family:'Lucida Console'; color:white; font-size: 18px; color: black;text-align:justify; padding-top:0px; margin-left:20px;">
+            <div style="color:white;">
+                <b>
+                    @Html.DisplayFor(model => model.Ano)
+                </b>
+            </div>
         </div>
-
-
     </div>
 </div>
 
 @*Personagens do Jogo*@
-<div style="font-family:Arial;font-size: 30px; color: red; font-weight: bold;padding-top: 85px; margin-left:6px;">Personagens</div>
+<div style="font-family:Arial;font-size: 30px; color: red; font-weight: bold;padding-top: 65px; margin-left:6px;">Personagens</div>
 
 <div style=" display:flex; flex-wrap:wrap; flex-direction:row; justify-content:space-around; align-content:center; margin-top: -4px;">
     @if (Model.ListaDePersonagens.Count() > 0)
@@ -81,63 +107,59 @@
         }
     }
 </div>
-
-<div>
-    <div>
-        <div style="margin-top:100px">
-            <h1 class="comentarios" style="color: red">Comentários:</h1>
-        </div>
-
-        <hr class="estilo3">
-        <div class="alert alert-info" style="margin-top:20px; margin-right:690px">
-            <strong>Nota:</strong> Para adicionar um comentário é necessário iniciar sessão!
-        </div>
-        @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador"))
-        {
-            <div style="margin-top:30px">
-
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => Model.ID)
-                    @Html.TextArea("ComentarioBox", "", 4, 100, htmlAttributes: new { @placeholder = "Adicione um Comentário" })
-                    <button type="submit" name=" botaoComentario" class="btn btn-primary "> Comentar </button>
-                }
-            </div>
-        }
-
-        @foreach (var comentario in Model.ListaDeComentarios)
-        {
-            <div>
-                @Html.DisplayFor(c => comentario.Texto)
-                @Html.DisplayFor(c => comentario.DataComentario)
-
-                @if (comentario.Utilizadores.UserName.Equals(User.Identity.Name) || User.IsInRole("Administrador"))
-                {
-                    <a href='@Url.Action("Edit","Comentarios", new { id = comentario.ID })'>Editar |</a>
-                    <a href='@Url.Action("Delete","Comentarios", new { id = comentario.ID })'>Apagar</a>
-                }
-
-
-            </div>
-        }
-    </div>
+@*Botão para voltar à lista de Jogos*@
+<div class="btn-group" role="group" style="margin-bottom:9px; padding-top:50px; padding-left: 850px;">
+    <button type="button" class="button" onclick="location.href='@Url.Action("Index","Jogos",new { id = Model.ID })'">Voltar para a lista de jogos.</button>
 </div>
 
+@* Botões de editar e apagar do Jogo somente para o Administrador*@
 @if (User.IsInRole("Administrador"))
 {
-    <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
-        @Html.ActionLink("Voltar para a Lista", "Index")
-        @using (Html.BeginForm("Delete", "Filmes", null, FormMethod.Post, null))
-        {
-            @*Só aparece para o Admin da página*@
-            @Html.AntiForgeryToken()
-            <input type="hidden" name="id" value="@Model.ID" />
-            @*
-                <button class="btn btn-danger" type="submit">Apagar</button>
-            *@
-        }
-    </p>
+    <div class="btn-group" role="group" style="margin-bottom:9px; padding-top:-20px; padding-left: 844px;">
+        <button type="button" class="button" onclick="location.href='@Url.Action("Edit","Jogos",new { id = Model.ID })'">Editar jogo.</button>
+        <button type="button" class="button" onclick="location.href='@Url.Action("Delete","Jogos", new { id = Model.ID })'">Apagar jogo.</button>
+    </div>
 }
+<div>
+    <div style="margin-top:20px">
+        <h1 class="comentarios" style="color:red; font-family:'Lucida Console';">Comentários:</h1>
+    </div>
+
+    @if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador"))
+    {
+        @*Área para introduzir o comentário*@
+        <div style="margin-top:30px">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => Model.ID)
+                @Html.TextArea("ComentarioBox", "", 4, 100, htmlAttributes: new { @placeholder = "Adicione um comentário" })
+                <button type="submit" class="button"> Comentar </button>
+            }
+        </div>
+    }
+    @*Comentários acerca do Jogo*@
+    @foreach (var comentario in Model.ListaDeComentarios)
+    {
+        <div class="alert alert-info" style="margin-top:10px; margin-right:580px;">
+
+            <div>
+                <strong>@Html.DisplayFor(c => comentario.Utilizadores.UserName)</strong>
+                (@Html.DisplayFor(c => comentario.DataComentario))
+            </div>
+            <div style="font-family:'Lucida Console'; color:black; margin-top:3px;">
+                @Html.DisplayFor(c => comentario.Texto)
+                @if (User.Identity.Name.Equals(comentario.Utilizadores.UserName) || User.IsInRole("Administrador"))
+                {
+                    <a href='@Url.Action("Edit","Comentarios",new { id = comentario.ID, JogoFK = comentario.JogoFK})'>Editar</a>
+                    <a href='@Url.Action("Delete","Comentarios",new { id = comentario.ID, JogoFK = comentario.JogoFK})'>Apagar</a>
+                }
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
 

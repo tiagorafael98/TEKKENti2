@@ -3,40 +3,34 @@
     ViewBag.Title = "Personagens";
 }
 
-<h2>Conheça todas as personagens!</h2>
+<style>
+    body {
+        background-image: url(../../FundoPersonagens/Fundo3.jpg);
+    }
+</style>
 
-<p>
-    @Html.ActionLink("Criar nova personagem", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fotografia)
-        </th>
-        <th></th>
-    </tr>
-
+<div style="font-family: 'Lucida Console'; text-align: left;color: red; font-size: 40px;font-weight: bold; margin-left:220px; margin-top:40px;">
+    Conheça todas as personagens!
+</div>
+<div style="display:flex; flex-wrap:wrap; flex-direction:row; justify-content:space-around; align-content:center; margin-top:40px;">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Fotografia)*@
-                <a href="/Personagens/Details/@item.ID">
-                    <img src="~/ImagensPers/@item.Fotografia" width="150" height="160" />
-                </a>
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
 
-</table>
+        <div style="padding-top: 15px">
+            <a href="/Personagens/Details/@item.ID">
+                <img src="~/ImagensPers/@item.Fotografia" width="250" height="310" />
+            </a>
+        </div>
+    }
+</div>
+
+
+
+@if (User.IsInRole("UtilizadorLogado") || User.IsInRole("Administrador"))
+{
+    <div style="padding-top: 50px; margin-top: 200px; margin-left: 700px;">
+        @Html.ActionLink("Adicionar nova personagem", "Create")
+    </div>
+}
+
+
